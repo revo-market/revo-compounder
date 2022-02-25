@@ -1,7 +1,6 @@
 import { Config, FarmBotConfig, Address } from '../types'
 import { BaseFarmBotClient } from './base-farm-bot-client'
 import { ContractKit } from "@celo/contractkit";
-//import { BigNumber } from 'bignumber.js'
 
 export class UbeswapFarmBotClient extends BaseFarmBotClient {
 
