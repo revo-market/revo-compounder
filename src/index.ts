@@ -126,11 +126,13 @@ export async function main() {
       description: `Comma-separated addresses of the staking token in the pair of tokens in the farm bot's underlying liquidity pool`,
       type: "string",
       demandOption: true,
+      example: '0x918146359264c492bd6934071c6bd31c854edbc3,0xe273ad7ee11dcfaa87383ad5977ee1504ac07568'
     })
     .option("rewards-tokens", {
       description: `Comma-separated addresses of the farm bot's rewards tokens, in order`,
       type: "string",
       demandOption: true,
+      example: '0x471EcE3750Da237f93B8E339c536989b8978a438,0x00be915b9dcf56a3cbe739d9b9c202ca692409ec,0x17700282592d6917f6a73d0bf8accf4d578c131e'
     })
     .option("gas", {
       description: "Amount of gas to use",
