@@ -135,7 +135,7 @@ export async function main() {
     .option("gas", {
       description: "Amount of gas to use",
       type: "number",
-      default: 1100000,
+      default: 3000000,
     })
     .option("gas-price", {
       description: "Gas price",
