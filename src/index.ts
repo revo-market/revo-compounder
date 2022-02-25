@@ -41,8 +41,11 @@ export function getFarmBotContract(kit: ContractKit, abi: AbiItem[] | AbiItem, a
   )
 }
 
+const UBESWAP_FARM_BOT_TYPE = "UbeswapFarmBot"
+
+
 const FARM_BOT_TYPE_TO_ABI: Record<string, AbiItem[] | AbiItem> = {
-  UbeswapFarmBot: UBESWAP_FARM_BOT_ABI,
+  [UBESWAP_FARM_BOT_TYPE]: UBESWAP_FARM_BOT_ABI,
 }
 
 async function getPaths(_stakingTokens: [string, string], _rewardsTokens: string[]): Promise<[string[], string[]][]> {
@@ -106,8 +109,8 @@ export async function main() {
     .option("farm-bot-type", {
       description: "Type of farm bot",
       type: "string",
-      choices: ["UbeswapFarmBot"],
-      default: "UbeswapFarmBot",
+      choices: Object.keys(FARM_BOT_TYPE_TO_ABI),
+      default: UBESWAP_FARM_BOT_TYPE,
     })
     .option('staking-tokens', {
       description: `The addresses of the staking token in the pair of tokens in the farm bot's underlying liquidity pool`,
@@ -138,13 +141,16 @@ export async function main() {
   // TODO add min profit arg and check rewards before calling compound
 
   const {kit, address: compounderAddress} = await getKit(argv.privateKey, argv.nodeUrl)
-  const farmBotAbi = FARM_BOT_TYPE_TO_ABI[argv.farmBotAddress]
+  const farmBotAbi = FARM_BOT_TYPE_TO_ABI[argv.farmBotType]
   const farmBotContract = getFarmBotContract(kit, farmBotAbi, argv.farmBotAddress)
   const paths = await getPaths(argv.stakingTokens as [string, string], argv.rewardsTokens as string[])
   let minAmountsOut = await getMinAmounts(paths)
-  await farmBotContract.methods.compound(paths, minAmountsOut, argv.deadlineSecondsAhead).send({
+  const result = await farmBotContract.methods.compound(paths, minAmountsOut, argv.deadlineSecondsAhead).send({
     from: compounderAddress,
     gas: argv.gas,
     gasPrice: argv.gasPrice
   })
+  console.log(`tx result status: ${result.status}`)
 }
+
+main().catch(console.error)
