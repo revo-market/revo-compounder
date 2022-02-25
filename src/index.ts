@@ -1,6 +1,7 @@
 import { ContractKit, newKit } from "@celo/contractkit";
 import * as yargs from "yargs";
-import {AbiItem} from "web3-utils";
+import {AbiItem} from "web3-utils"
+import BigNumber from 'bignumber.js'
 
 const UBESWAP_FARM_BOT_ABI: AbiItem[] = require("../abis/UbeswapFarmBot.json")
 
@@ -17,7 +18,7 @@ export interface FarmBotContract {
     compound: (
       paths: [string[], string[]][],
       minAmountsOut: [number, number][],
-      deadline: number
+      deadline: BigNumber
     ) => Transaction
   }
 }
@@ -113,13 +114,13 @@ export async function main() {
       default: UBESWAP_FARM_BOT_TYPE,
     })
     .option('staking-tokens', {
-      description: `The addresses of the staking token in the pair of tokens in the farm bot's underlying liquidity pool`,
-      type: 'array',
+      description: `Comma-separated addresses of the staking token in the pair of tokens in the farm bot's underlying liquidity pool`,
+      type: 'string',
       demandOption: true
     })
     .option('rewards-tokens', {
-      description: `The addresses of the farm bot's rewards tokens, in order`,
-      type: 'array',
+      description: `Comma-separated addresses of the farm bot's rewards tokens, in order`,
+      type: 'string',
       demandOption: true
     })
     .option('gas', {
@@ -143,9 +144,9 @@ export async function main() {
   const {kit, address: compounderAddress} = await getKit(argv.privateKey, argv.nodeUrl)
   const farmBotAbi = FARM_BOT_TYPE_TO_ABI[argv.farmBotType]
   const farmBotContract = getFarmBotContract(kit, farmBotAbi, argv.farmBotAddress)
-  const paths = await getPaths(argv.stakingTokens as [string, string], argv.rewardsTokens as string[])
-  let minAmountsOut = await getMinAmounts(paths)
-  const result = await farmBotContract.methods.compound(paths, minAmountsOut, argv.deadlineSecondsAhead).send({
+  const paths = await getPaths(argv.stakingTokens.split(',') as [string, string], argv.rewardsTokens.split(',') as string[])
+  const minAmountsOut = await getMinAmounts(paths)
+  const result = await farmBotContract.methods.compound(paths, minAmountsOut, new BigNumber(Date.now()).dividedToIntegerBy(1000).plus(argv.deadlineSecondsAhead)).send({
     from: compounderAddress,
     gas: argv.gas,
     gasPrice: argv.gasPrice
