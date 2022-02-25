@@ -6,7 +6,7 @@
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./dist",
     "baseUrl": "./",
     "sourceMap": true,
