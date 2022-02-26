@@ -14,7 +14,7 @@
     "build": "tsc",
     "lint": "eslint --ext=.tsx,.ts --fix src/",
     "format": "prettier --loglevel error --write \"./src/**/*.ts\"",
-    "deploy": "yarn build && gcloud functions deploy compound --entry-point=main --runtime=nodejs16 --env-vars-file=config.mainnet.json --trigger-http"
+    "deploy": "yarn build && gcloud functions deploy compound --entry-point=main --runtime=nodejs16 --max-instances=5 --env-vars-file=config.mainnet.json --trigger-http"
   },
   "engines": {
     "node": "^16.12.0"
