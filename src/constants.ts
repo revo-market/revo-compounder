@@ -1,5 +1,5 @@
 import { AbiItem } from "web3-utils";
-import { FarmBotConfig } from "./types";
+import { FarmBotConfig, Network } from "./types";
 
 const ADDRESSES = {
   MAINNET: {
@@ -13,11 +13,17 @@ const ADDRESSES = {
   },
 };
 
+export const NODE_URLS = {
+  ALFAJORES: 'https://alfajores-forno.celo-testnet.org',
+  MAINNET: 'https://forno.celo.org'
+}
+
 const UBESWAP_FARM_BOT_ABI: AbiItem[] = require("../abis/UbeswapFarmBot.json");
 
-export const mcUSD_mcEUR_FARM_BOT_MAINNET: FarmBotConfig = {
-  name: "mcUSD-mcEUR farm bot mainnet",
+const mcUSD_mcEUR_FARM_BOT_MAINNET: FarmBotConfig = {
+  name: "mcUSD-mcEUR-ubeswap",
   abi: UBESWAP_FARM_BOT_ABI,
+  network: 'MAINNET',
   farmAddress: ADDRESSES.MAINNET.mcUSD_mcEUR_FARM_BOT,
   stakingTokens: [ADDRESSES.MAINNET.mcUSD, ADDRESSES.MAINNET.mcEUR],
   rewardsTokens: [
@@ -43,9 +49,26 @@ export const mcUSD_mcEUR_FARM_BOT_MAINNET: FarmBotConfig = {
     // from rewards token 2
     [
       // to staking token 0
-      [ADDRESSES.MAINNET.MOO, ADDRESSES.MAINNET.mCELO, ADDRESSES.MAINNET.CELO, ADDRESSES.MAINNET.mcUSD],
+      [
+        ADDRESSES.MAINNET.MOO,
+        ADDRESSES.MAINNET.mCELO,
+        ADDRESSES.MAINNET.CELO,
+        ADDRESSES.MAINNET.mcUSD,
+      ],
       // to staking token 1
-      [ADDRESSES.MAINNET.MOO, ADDRESSES.MAINNET.mCELO, ADDRESSES.MAINNET.CELO, ADDRESSES.MAINNET.mcEUR],
+      [
+        ADDRESSES.MAINNET.MOO,
+        ADDRESSES.MAINNET.mCELO,
+        ADDRESSES.MAINNET.CELO,
+        ADDRESSES.MAINNET.mcEUR,
+      ],
     ],
-  ]
-}
+  ],
+};
+
+export const FARM_BOTS: Record<Network, Record<string, FarmBotConfig>> = {
+  MAINNET: {
+    [mcUSD_mcEUR_FARM_BOT_MAINNET.name]: mcUSD_mcEUR_FARM_BOT_MAINNET,
+  },
+  ALFAJORES: {}
+};
