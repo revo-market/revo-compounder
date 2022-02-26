@@ -1,5 +1,4 @@
 import { FARM_BOTS, NODE_URLS } from './constants'
-import log from './log'
 import { getCompounderConfig } from './config'
 import { compound } from './compound'
 import { getKit } from './kit'
@@ -31,4 +30,4 @@ export async function main() {
   }
 }
 
-main().catch(log.error)
+main()
