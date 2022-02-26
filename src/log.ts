@@ -9,4 +9,4 @@ const streams: Logger.Stream[] = [{ stream: consoleStream, level: "info" }];
 export default Logger.createLogger({
   name: "revo-compounder",
   streams,
-})
+});

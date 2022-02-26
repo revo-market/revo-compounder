@@ -14,16 +14,16 @@ const ADDRESSES = {
 };
 
 export const NODE_URLS = {
-  ALFAJORES: 'https://alfajores-forno.celo-testnet.org',
-  MAINNET: 'https://forno.celo.org'
-}
+  ALFAJORES: "https://alfajores-forno.celo-testnet.org",
+  MAINNET: "https://forno.celo.org",
+};
 
 const UBESWAP_FARM_BOT_ABI: AbiItem[] = require("../abis/UbeswapFarmBot.json");
 
 const mcUSD_mcEUR_FARM_BOT_MAINNET: FarmBotConfig = {
   name: "mcUSD-mcEUR-ubeswap",
   abi: UBESWAP_FARM_BOT_ABI,
-  network: 'MAINNET',
+  network: "MAINNET",
   farmAddress: ADDRESSES.MAINNET.mcUSD_mcEUR_FARM_BOT,
   stakingTokens: [ADDRESSES.MAINNET.mcUSD, ADDRESSES.MAINNET.mcEUR],
   rewardsTokens: [
@@ -70,5 +70,5 @@ export const FARM_BOTS: Record<Network, Record<string, FarmBotConfig>> = {
   MAINNET: {
     [mcUSD_mcEUR_FARM_BOT_MAINNET.name]: mcUSD_mcEUR_FARM_BOT_MAINNET,
   },
-  ALFAJORES: {}
+  ALFAJORES: {},
 };

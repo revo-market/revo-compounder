@@ -25,6 +25,10 @@ export type Address = string;
 
 export type Network = "ALFAJORES" | "MAINNET";
 
+export function isNetwork(network: string): network is Network {
+  return network === "MAINNET" || network === "ALFAJORES";
+}
+
 export interface FarmBotConfig {
   farmAddress: Address;
   name: string;
@@ -33,4 +37,13 @@ export interface FarmBotConfig {
   rewardsTokens: Address[];
   abi: AbiItem[] | AbiItem;
   pathsDefault: [string[], string[]][];
+}
+
+export interface CompounderConfig {
+  privateKey: string;
+  network: Network;
+  farmBotNames: string[];
+  deadlineSecondsAhead: number;
+  gas: number;
+  gasPrice: number;
 }
