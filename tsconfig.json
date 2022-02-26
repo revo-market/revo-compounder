@@ -6,7 +6,7 @@
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./dist",
     "baseUrl": "./",
     "sourceMap": true,
@@ -17,10 +17,5 @@
     "experimentalDecorators": true,
     "skipLibCheck": true
   },
-  "include": [
-    "./scripts/**/*.ts",
-    "./typechain"
-  ],
-  "exclude": ["node_modules/**/*", "dist", "test"],
-  "files": ["./hardhat.config.ts"]
+  "exclude": ["node_modules/**/*", "dist"],
 }
