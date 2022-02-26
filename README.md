@@ -21,7 +21,7 @@ Give your service account access to your new secret.
 ```bash
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --member serviceAccount:compounder-cf@${PROJECT_ID}.iam.gserviceaccount.com \
-  --role roles/secretmanager.accessor
+  --role roles/secretmanager.secretAccessor
 ```
 
 Next, you may use the following command to deploy your cloud function:
