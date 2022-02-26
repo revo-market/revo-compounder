@@ -106,3 +106,4 @@ dist
 # JetBrains
 .idea
 
+config.mainnet.json
