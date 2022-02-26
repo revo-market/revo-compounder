@@ -1,12 +1,35 @@
 import * as yargs from 'yargs'
+import yargsParser from 'yargs-parser'
+import { loadSecret } from '@valora/secrets-loader'
 import { CompounderConfig, isNetwork } from './types'
 
+/**
+ * Private keys should be secured with Google Secrets Manager, rather than
+ *  included in an unencrypted config file.
+ *
+ * This takes the secret name from the config params or environment, loads the private key from
+ *  GSM, and adds the private key to the environment.
+ */
+async function loadPrivateKeyIntoEnv() {
+  const privateKeySecretName = yargsParser(process.argv.slice(2), {
+    envPrefix: '',
+  }).privateKeySecretName as string
+  if (!privateKeySecretName) {
+    throw new Error(
+      'Missing required config parameter: private-key-secret-name',
+    )
+  }
+  Object.assign(process.env, await loadSecret(privateKeySecretName))
+}
+
 export async function getCompounderConfig(): Promise<CompounderConfig> {
+  await loadPrivateKeyIntoEnv()
+
   const argv = await yargs
     .env('')
     .option('private-key', {
       description:
-        'Private key to use for calling config. Must be authorized compounder for farm bot.',
+        'Private key to use for calling config. Must be authorized compounder for farm bot. NOTE: should NOT be passed in as unencrypted environment variable! (Instead, set private-key-secret-name to name of Google Cloud Secret containing PRIVATE_KEY=<your-private-key>)',
       type: 'string',
       demandOption: true,
     })
