@@ -56,6 +56,9 @@ export async function compound({
   );
   const paths = await getPaths(farmBotConfig);
   const minAmountsOut = await getMinAmounts(paths);
+
+  // TODO add min profit arg and check rewards before calling compound
+
   log.info(`Compounding for farm ${farmBotConfig.name}`);
   const result = await farmBotContract.methods
     .compound(
