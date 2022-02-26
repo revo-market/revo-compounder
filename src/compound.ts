@@ -19,14 +19,12 @@ async function getPaths({
   rewardsTokens: string[]
   pathsDefault: [string[], string[]][]
 }): Promise<[string[], string[]][]> {
-  // TODO make this dynamic
   return pathsDefault
 }
 
 async function getMinAmounts(
   _paths: [string[], string[]][],
 ): Promise<[number, number][]> {
-  // TODO get dynamically
   return [
     [0, 0],
     [0, 0],
@@ -57,8 +55,6 @@ export async function compound({
   const paths = await getPaths(farmBotConfig)
   const minAmountsOut = await getMinAmounts(paths)
 
-  // TODO add min profit arg and check rewards before calling compound
-
   log.info(`Compounding for farm ${farmBotConfig.name}`)
   const result = await farmBotContract.methods
     .compound(
@@ -74,6 +70,4 @@ export async function compound({
       gasPrice,
     })
   log.info(`tx result status: ${result.status}`)
-
-  // todo deposit compounder rewards back in farm bot
 }
