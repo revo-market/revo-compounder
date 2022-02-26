@@ -1,8 +1,8 @@
-import { FARM_BOTS, NODE_URLS } from "./constants";
-import log from "./log";
-import { getCompounderConfig } from "./config";
-import { compound } from "./compound";
-import { getKit } from "./kit";
+import { FARM_BOTS, NODE_URLS } from './constants'
+import log from './log'
+import { getCompounderConfig } from './config'
+import { compound } from './compound'
+import { getKit } from './kit'
 
 export async function main() {
   const {
@@ -12,14 +12,14 @@ export async function main() {
     deadlineSecondsAhead,
     network,
     farmBotNames,
-  } = await getCompounderConfig();
+  } = await getCompounderConfig()
   const { kit, address: compounderAddress } = await getKit(
     privateKey,
-    NODE_URLS[network]
-  );
+    NODE_URLS[network],
+  )
 
   for (const farmBotName of farmBotNames) {
-    const farmBotConfig = FARM_BOTS[network][farmBotName];
+    const farmBotConfig = FARM_BOTS[network][farmBotName]
     await compound({
       kit,
       farmBotConfig,
@@ -27,8 +27,8 @@ export async function main() {
       gas,
       gasPrice,
       deadlineSecondsAhead,
-    });
+    })
   }
 }
 
-main().catch(log.error);
+main().catch(log.error)
