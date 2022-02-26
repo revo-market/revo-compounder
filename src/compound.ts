@@ -74,4 +74,6 @@ export async function compound({
       gasPrice,
     });
   log.info(`tx result status: ${result.status}`);
+
+  // todo deposit compounder rewards back in farm bot
 }
