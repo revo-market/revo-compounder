@@ -1,23 +1,9 @@
 module.exports = {
-  env: {
-    browser: false,
-    es2021: true,
-    node: true,
-  },
-  plugins: ["@typescript-eslint"],
-  extends: [
-    "standard",
-    "plugin:prettier/recommended",
-    "plugin:node/recommended",
-  ],
-  parser: "@typescript-eslint/parser",
+  extends: ['@valora/eslint-config-typescript'],
   parserOptions: {
-    ecmaVersion: 12,
+    project: './tsconfig.eslint.json',
   },
   rules: {
-    "node/no-unsupported-features/es-syntax": [
-      "error",
-      { ignores: ["modules"] },
-    ],
-  },
-};
+    'no-console': ['error', { allow: ['none'] }]
+  }
+}
