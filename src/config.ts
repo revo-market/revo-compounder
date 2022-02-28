@@ -13,7 +13,7 @@ export async function getCompounderConfig(): Promise<CompounderConfig> {
     .option('gas', {
       description: 'Amount of gas to use',
       type: 'number',
-      default: 3000000,
+      default: 4e6,
     })
     .option('gas-price', {
       description: 'Gas price',
