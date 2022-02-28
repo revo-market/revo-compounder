@@ -3,7 +3,7 @@ import { getCompounderConfig } from './config'
 import { compound } from './compound'
 import { getKit } from './kit'
 
-export async function main() {
+export async function main(): Promise<number> {
   const {
     privateKey,
     gas,
@@ -28,6 +28,5 @@ export async function main() {
       deadlineSecondsAhead,
     })
   }
+  return 1 // google cloud function needs this
 }
-
-main()
