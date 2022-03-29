@@ -23,13 +23,9 @@ async function getPaths({
 }
 
 async function getMinAmounts(
-  _paths: [string[], string[]][],
+  paths: [string[], string[]][],
 ): Promise<[number, number][]> {
-  return [
-    [0, 0],
-    [0, 0],
-    [0, 0],
-  ]
+  return paths.map(() => [0,0])
 }
 
 export async function compound({
