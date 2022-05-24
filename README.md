@@ -56,13 +56,12 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 
 Deploy the cron job:
 ```bash
-gcloud scheduler jobs create http compound-daily \
---schedule "0 */6 * * *" \
---time-zone "America/Los_Angeles" 
+gcloud scheduler jobs create http compound \
+--schedule "0-59/10 * * * *" \
+--time-zone "America/Los_Angeles" \
 --uri "<your-cloud-function-uri>" \
---http-method POST  \
---oidc-service-account-email compounder-cron@revo-338602.iam.gserviceaccount.com \ 
---location us-west1
+--oidc-service-account-email compounder-cron@${PROJECT_ID}.iam.gserviceaccount.com \
+--location us-central1
 ```
-(Note that this has the compounder run every 6 hours, but can be configured to run as often as you like via the 
+(Note that this has the compounder run every 10 minutes, but can be configured to run as often as you like via the 
 `schedule` parameter.)
