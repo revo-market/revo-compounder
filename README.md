@@ -54,7 +54,7 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
   --role roles/cloudfunctions.invoker
 ```
 
-Deploy the cron job:
+Deploy the cron job (remember to fill in `<your-cloud-function-uri>` first and remove the `<>`):
 ```bash
 gcloud scheduler jobs create http compound \
 --schedule "0-59/10 * * * *" \
