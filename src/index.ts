@@ -18,19 +18,27 @@ export const main: HttpFunction = async (_req, res) => {
       privateKey,
       NODE_URLS[network],
     )
-
+    let responseStatus = 200
+    const responseBody: Record<string, any> = {}
     for (const farmBotName of farmBotNames) {
-      const farmBotConfig = FARM_BOTS[network][farmBotName]
-      await compound({
-        kit,
-        farmBotConfig,
-        compounderAddress,
-        gas,
-        gasPrice,
-        deadlineSecondsAhead,
-      })
+      try {
+        const farmBotConfig = FARM_BOTS[network][farmBotName]
+        await compound({
+          kit,
+          farmBotConfig,
+          compounderAddress,
+          gas,
+          gasPrice,
+          deadlineSecondsAhead,
+        })
+      } catch (e) {
+        // still try other farms, but return a 500 at the end
+        console.error(`Error compounding ${farmBotName}: ${e}`)
+        responseStatus = 500
+        responseBody.errors = responseBody.errors ? [...responseBody.errors, e] : [e]
+      }
     }
-    res.status(200).send({})
+    res.status(responseStatus).send(responseBody)
   } catch (e) {
     res.status(500).send({error: e})
   }
