@@ -11,7 +11,8 @@ const ADDRESSES = {
     PACT: '0x46c9757C5497c5B1f2eb73aE79b6B67D119B0B58',
     mcUSD_mcEUR_FARM_BOT: '0xCB34fbfC3b9a73bc04D2eb43B62532c7918d9E81',
     PACT_CELO_FARM_BOT: '0xec17fb85529a6a48cb6ed7e3c1d1a7cc57d742c1',
-    UBE_CELO_FARM_BOT: '0x1cEC3e5722CB0a2FFB78e299b9607ea7efA92090'
+    UBE_CELO_FARM_BOT: '0x1cEC3e5722CB0a2FFB78e299b9607ea7efA92090',
+    CELO_mcUSD_FARM_BOT: '0xC2402ADc740eFdC40C19fc384240481f11E35E8a',
   },
 }
 
@@ -115,11 +116,32 @@ const UBE_CELO_MAINNET: FarmBotConfig = {
   ],
 }
 
+const CELO_mcUSD_MAINNET: FarmBotConfig = {
+  name: 'CELO-mcUSD-ubeswap',
+  abi: UBESWAP_SINGLE_REWARD_FARM_BOT_ABI,
+  network: 'MAINNET',
+  farmAddress: ADDRESSES.MAINNET.CELO_mcUSD_FARM_BOT,
+  stakingTokens: [ADDRESSES.MAINNET.CELO, ADDRESSES.MAINNET.mcUSD],
+  rewardsTokens: [
+    ADDRESSES.MAINNET.UBE,
+  ],
+  pathsDefault: [
+    // from rewards token 0
+    [
+      // to staking token 0
+      [ADDRESSES.MAINNET.UBE, ADDRESSES.MAINNET.CELO],
+      // to staking token 1
+      [ADDRESSES.MAINNET.UBE, ADDRESSES.MAINNET.CELO, ADDRESSES.MAINNET.mcUSD],
+    ],
+  ],
+}
+
 export const FARM_BOTS: Record<Network, Record<string, FarmBotConfig>> = {
   MAINNET: {
     [mcUSD_mcEUR_FARM_BOT_MAINNET.name]: mcUSD_mcEUR_FARM_BOT_MAINNET,
     [PACT_CELO_MAINNET.name]: PACT_CELO_MAINNET,
-    [UBE_CELO_MAINNET.name]: UBE_CELO_MAINNET
+    [UBE_CELO_MAINNET.name]: UBE_CELO_MAINNET,
+    [CELO_mcUSD_MAINNET.name]: CELO_mcUSD_MAINNET,
   },
   ALFAJORES: {},
 }
