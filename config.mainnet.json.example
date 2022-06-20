@@ -1,5 +1,4 @@
 {
-  "private-key-secret-name": "projects/123456789/secrets/compounder-private-key-mainnet-0/versions/latest",
-  "farm-bot-names": "mcUSD-mcEUR-ubeswap",
+  "farm-bot-names": "mcUSD-mcEUR-ubeswap,PACT-CELO-ubeswap,UBE-CELO-ubeswap",
   "network": "MAINNET"
 }
