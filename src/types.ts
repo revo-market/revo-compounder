@@ -41,8 +41,6 @@ export function isNetwork(network: string): network is Network {
   return network === 'MAINNET' || network === 'ALFAJORES'
 }
 
-export type FarmBotType = 'UBESWAP' | 'MOBIUS'
-
 export interface UbeswapFarmBotConfig {
   farmAddress: Address
   name: string
