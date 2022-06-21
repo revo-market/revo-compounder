@@ -27,6 +27,7 @@ export interface MobiusFarmBotContract {
       paths: string[][],
       minAmountsOut: BigNumber[],
       minSwapOut: BigNumber,
+      minLiquidity: BigNumber,
       deadline: BigNumber,
     ) => Transaction
   }
@@ -42,16 +43,30 @@ export function isNetwork(network: string): network is Network {
 
 export type FarmBotType = 'UBESWAP' | 'MOBIUS'
 
-export interface FarmBotConfig {
+export interface UbeswapFarmBotConfig {
   farmAddress: Address
   name: string
   network: Network
-  farmBotType: FarmBotType
+  farmBotType: 'UBESWAP'
   stakingTokens: [Address, Address]
   rewardsTokens: Address[]
   abi: AbiItem[] | AbiItem
   pathsDefault: [string[], string[]][]
 }
+
+export interface MobiusFarmBotConfig {
+  farmAddress: Address
+  name: string
+  network: Network
+  farmBotType: 'MOBIUS'
+  celoStakingToken: Address // celo-native member of the pair, e.g. cUSD in cUSD-USDC
+  bridgeStakingToken: Address // non-native member, e.g. USDC in cUSD-USDC
+  rewardsTokens: Address[]
+  abi: AbiItem[] | AbiItem
+  pathsDefault: Address[][] // inner lists are path from a rewards token to celoStakingToken
+}
+
+export type FarmBotConfig = UbeswapFarmBotConfig | MobiusFarmBotConfig
 
 export interface CompounderConfig {
   privateKey: string
