@@ -1,5 +1,5 @@
 import { ContractKit } from '@celo/contractkit'
-import { FarmBotConfig, FarmBotContract } from './types'
+import { FarmBotConfig, UbeswapFarmBotContract } from './types'
 import log from './log'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
@@ -8,7 +8,7 @@ export function getFarmBotContract(
   kit: ContractKit,
   abi: AbiItem[] | AbiItem,
   address: string,
-): FarmBotContract {
+): UbeswapFarmBotContract {
   return new kit.web3.eth.Contract(abi, address)
 }
 

@@ -28,6 +28,7 @@ const mcUSD_mcEUR_FARM_BOT_MAINNET: FarmBotConfig = {
   name: 'mcUSD-mcEUR-ubeswap',
   abi: UBESWAP_FARM_BOT_ABI,
   network: 'MAINNET',
+  farmBotType: 'UBESWAP',
   farmAddress: ADDRESSES.MAINNET.mcUSD_mcEUR_FARM_BOT,
   stakingTokens: [ADDRESSES.MAINNET.mcUSD, ADDRESSES.MAINNET.mcEUR],
   rewardsTokens: [
@@ -63,6 +64,7 @@ const mcUSD_mcEUR_FARM_BOT_MAINNET: FarmBotConfig = {
 const PACT_CELO_MAINNET: FarmBotConfig = {
   name: 'PACT-CELO-ubeswap',
   abi: UBESWAP_FARM_BOT_ABI,
+  farmBotType: 'UBESWAP',
   network: 'MAINNET',
   farmAddress: ADDRESSES.MAINNET.PACT_CELO_FARM_BOT,
   stakingTokens: [ADDRESSES.MAINNET.PACT, ADDRESSES.MAINNET.CELO],
@@ -100,6 +102,7 @@ const UBE_CELO_MAINNET: FarmBotConfig = {
   name: 'UBE-CELO-ubeswap',
   abi: UBESWAP_SINGLE_REWARD_FARM_BOT_ABI,
   network: 'MAINNET',
+  farmBotType: 'UBESWAP',
   farmAddress: ADDRESSES.MAINNET.UBE_CELO_FARM_BOT,
   stakingTokens: [ADDRESSES.MAINNET.UBE, ADDRESSES.MAINNET.CELO],
   rewardsTokens: [
@@ -120,6 +123,7 @@ const CELO_mcUSD_MAINNET: FarmBotConfig = {
   name: 'CELO-mcUSD-ubeswap',
   abi: UBESWAP_SINGLE_REWARD_FARM_BOT_ABI,
   network: 'MAINNET',
+  farmBotType: 'UBESWAP',
   farmAddress: ADDRESSES.MAINNET.CELO_mcUSD_FARM_BOT,
   stakingTokens: [ADDRESSES.MAINNET.CELO, ADDRESSES.MAINNET.mcUSD],
   rewardsTokens: [
