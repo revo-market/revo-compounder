@@ -1,4 +1,4 @@
 {
-  "farm-bot-names": "mcUSD-mcEUR-ubeswap,PACT-CELO-ubeswap,UBE-CELO-ubeswap",
+  "farm-bot-names": "mcUSD-mcEUR-ubeswap,PACT-CELO-ubeswap,UBE-CELO-ubeswap,CELO-mcUSD-ubeswap",
   "network": "MAINNET"
 }
