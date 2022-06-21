@@ -1,8 +1,9 @@
 import { FARM_BOTS, NODE_URLS } from './constants'
 import { getCompounderConfig } from './config'
-import { compound } from './compound'
+import { compoundUbeswap } from './compound-ubeswap'
 import { getKit } from './kit'
 import { HttpFunction } from '@google-cloud/functions-framework/build/src/functions'
+import { compoundMobius } from './compound-mobius'
 
 export const main: HttpFunction = async (_req, res) => {
   try {
@@ -23,14 +24,23 @@ export const main: HttpFunction = async (_req, res) => {
     for (const farmBotName of farmBotNames) {
       try {
         const farmBotConfig = FARM_BOTS[network][farmBotName]
-        await compound({
+        if (!farmBotConfig) {
+          throw new Error(`Unrecognized farmBotName: ${farmBotName}`)
+        }
+        const compoundParams = {
           kit,
-          farmBotConfig,
           compounderAddress,
           gas,
           gasPrice,
-          deadlineSecondsAhead,
-        })
+          deadlineSecondsAhead
+        }
+        switch (farmBotConfig.farmBotType) {
+          case 'UBESWAP':
+            await compoundUbeswap({...compoundParams, farmBotConfig})
+            break
+          case 'MOBIUS':
+            await compoundMobius({...compoundParams, farmBotConfig})
+        }
       } catch (e) {
         // still try other farms, but return a 500 at the end
         console.error(`Error compounding ${farmBotName}: ${e}`)

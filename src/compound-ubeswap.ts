@@ -1,18 +1,18 @@
 import { ContractKit } from '@celo/contractkit'
-import { FarmBotConfig, FarmBotContract } from './types'
+import { UbeswapFarmBotConfig, UbeswapFarmBotContract } from './types'
 import log from './log'
 import BigNumber from 'bignumber.js'
 import { AbiItem } from 'web3-utils'
 
-export function getFarmBotContract(
+export function getUbeswapFarmBotContract(
   kit: ContractKit,
   abi: AbiItem[] | AbiItem,
   address: string,
-): FarmBotContract {
+): UbeswapFarmBotContract {
   return new kit.web3.eth.Contract(abi, address)
 }
 
-async function getPaths({
+async function getPathsUbeswap({
   pathsDefault,
 }: {
   stakingTokens: [string, string]
@@ -22,13 +22,13 @@ async function getPaths({
   return pathsDefault
 }
 
-async function getMinAmounts(
+async function getMinAmountsUbeswap(
   paths: [string[], string[]][],
 ): Promise<[number, number][]> {
   return paths.map(() => [0,0])
 }
 
-export async function compound({
+export async function compoundUbeswap({
   kit,
   farmBotConfig,
   compounderAddress,
@@ -37,19 +37,19 @@ export async function compound({
   deadlineSecondsAhead,
 }: {
   kit: ContractKit
-  farmBotConfig: FarmBotConfig
+  farmBotConfig: UbeswapFarmBotConfig
   compounderAddress: string
   gas: number
   gasPrice: number
   deadlineSecondsAhead: number
 }): Promise<void> {
-  const farmBotContract = getFarmBotContract(
+  const farmBotContract = getUbeswapFarmBotContract(
     kit,
     farmBotConfig.abi,
     farmBotConfig.farmAddress,
   )
-  const paths = await getPaths(farmBotConfig)
-  const minAmountsOut = await getMinAmounts(paths)
+  const paths = await getPathsUbeswap(farmBotConfig)
+  const minAmountsOut = await getMinAmountsUbeswap(paths)
 
   log.info(`Compounding for farm ${farmBotConfig.name}`)
   const result = await farmBotContract.methods
