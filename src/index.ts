@@ -24,6 +24,9 @@ export const main: HttpFunction = async (_req, res) => {
     for (const farmBotName of farmBotNames) {
       try {
         const farmBotConfig = FARM_BOTS[network][farmBotName]
+        if (!farmBotConfig) {
+          throw new Error(`Unrecognized farmBotName: ${farmBotName}`)
+        }
         const compoundParams = {
           kit,
           compounderAddress,
