@@ -59,8 +59,8 @@ export interface MobiusFarmBotConfig {
   name: string
   network: Network
   farmBotType: 'MOBIUS'
-  celoStakingToken: Address // celo-native member of the pair, e.g. cUSD in cUSD-USDC
-  bridgeStakingToken: Address // non-native member, e.g. USDC in cUSD-USDC
+  celoStakingToken: Address // celo-native member of the pair, e.g. cUSD in cUSD-cUSDC
+  bridgeStakingToken: Address // non-native member, e.g. cUSDC in cUSD-cUSDC
   rewardsTokens: Address[]
   abi: AbiItem[] | AbiItem
   pathsDefault: Address[][] // inner lists are path from a rewards token to celoStakingToken
